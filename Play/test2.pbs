@@ -1,0 +1,42 @@
+#!/bin/bash
+#PBS -N asearchc
+#PBS -W group_list=mfh
+#PBS -l jobtype=cluster_only
+#PBS -l select=1:ncpus=1:mem=1466mb
+#PBS -l place=pack:shared
+#PBS -l pvmem=9330mb
+#PBS -l cput=100:00:0
+#PBS -l walltime=100:00:0
+#PBS -q windfall
+#PBS -j oe
+#PBS -J 1-100
+
+
+source /usr/share/Modules/init/bash
+cd $PBS_O_WORKDIR
+module load R
+
+
+perl randomSearch.pl -s -a >> Autos.10kb.RS.CLU.$PBS_ARRAY_INDEX.out 2> /dev/null 
+
+
+
+
+#perl randomSearch.pl -c X -r "-m -p" >> X.m_T_p.SEARCH.$PBS_ARRAY_INDEX.out1 2> /dev/null &
+#perl randomSearch.pl -c X -r "-p" >> X.m_F_p.SEARCH.$PBS_ARRAY_INDEX.out1 2> /dev/null &
+#perl randomSearch.pl -c X -r "" >> X.m_F_g.SEARCH.$PBS_ARRAY_INDEX.out1 2> /dev/null &
+#perl randomSearch.pl -c X -r "-m " >> X.m_T_g.SEARCH.$PBS_ARRAY_INDEX.out1 2> /dev/null &
+#sleep 1
+#perl randomSearch.pl -c X -r "-m -p" >> X.m_T_p.SEARCH.$PBS_ARRAY_INDEX.out2 2> /dev/null &
+#perl randomSearch.pl -c X -r "-p" >> X.m_F_p.SEARCH.$PBS_ARRAY_INDEX.out2 2> /dev/null &
+#perl randomSearch.pl -c X -r "" >> X.m_F_g.SEARCH.$PBS_ARRAY_INDEX.out2 2> /dev/null &
+#perl randomSearch.pl -c X -r "-m" >> X.m_T_g.SEARCH.$PBS_ARRAY_INDEX.out2 2> /dev/null &
+#sleep 1
+
+#perl randomSearch.pl -c X -r "" >> X.m_F_g.SEARCH.$PBS_ARRAY_INDEX.out3 2> /dev/null &
+#perl randomSearch.pl -c X -r "-m " >> X.m_T_g.SEARCH.$PBS_ARRAY_INDEX.out3 2> /dev/null &
+#sleep 1
+#perl randomSearch.pl -c X -r "" >> X.m_F_g.SEARCH.$PBS_ARRAY_INDEX.out4 2> /dev/null &
+#perl randomSearch.pl -c X -r "-m " >> X.m_T_g.SEARCH.$PBS_ARRAY_INDEX.out4 2> /dev/null 
+
+wait

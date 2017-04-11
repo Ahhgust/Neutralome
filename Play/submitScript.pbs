@@ -1,0 +1,29 @@
+#!/bin/bash
+#PBS -N xsearch
+#PBS -W group_list=igert
+#PBS -l jobtype=smp_only
+#PBS -l select=1:ncpus=8:mem=15466mb
+#PBS -l place=pack:shared
+#PBS -l pvmem=9330mb
+#PBS -l cput=800:00:0
+#PBS -l walltime=100:00:0
+#PBS -q windfall
+#PBS -j oe
+#PBS -J 1-32
+
+
+source /usr/share/Modules/init/bash
+cd $PBS_O_WORKDIR
+module load R
+
+for i in {1..8}
+do
+#perl randomSearch.pl -s -a >> Autos.10kb.RS.$PBS_ARRAY_INDEX.out.mammals.$i 2> /dev/null &
+perl randomSearch.pl -c X >> X.SEARCH.SMP.$PBS_ARRAY_INDEX.out.verts.$i 2> /dev/null &
+sleep 1
+done
+
+wait
+
+
+

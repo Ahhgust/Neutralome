@@ -1,0 +1,24 @@
+#!/bin/bash
+#PBS -N asearch10k
+#PBS -W group_list=mfh
+#PBS -l jobtype=cluster_only
+#PBS -l select=1:ncpus=2:mem=3766mb
+#PBS -l place=pack:shared
+#PBS -l pvmem=9330mb
+#PBS -l cput=100:00:0
+#PBS -l walltime=100:00:0
+#PBS -q standard
+#PBS -j oe
+#PBS -J 1-1000
+
+source /usr/share/Modules/init/bash
+
+
+cd $PBS_O_WORKDIR
+module load R
+
+lazyArray -s 1000 -t 1 -i $PBS_ARRAY_INDEX commands
+
+
+
+

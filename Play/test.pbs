@@ -1,0 +1,19 @@
+#!/bin/bash
+#PBS -N xsearch
+#PBS -W group_list=igert
+#PBS -l jobtype=cluster_only
+#PBS -l select=1:ncpus=1:mem=1466mb
+#PBS -l place=pack:shared
+#PBS -l pvmem=9330mb
+#PBS -l cput=7:00:0
+#PBS -l walltime=7:00:0
+#PBS -q standard
+#PBS -j oe
+#PBS -J 1-100
+
+
+source /usr/share/Modules/init/bash
+cd $PBS_O_WORKDIR
+module load R
+
+perl randomSearch.pl -c X >> X.SEARCH.CLU.$PBS_ARRAY_INDEX.out 2> /dev/null 

@@ -1,0 +1,23 @@
+#!/bin/bash
+#PBS -N asearchy
+#PBS -W group_list=mfh
+#PBS -l jobtype=htc_only
+#PBS -l select=1:ncpus=2:mem=3732mb
+#PBS -l place=pack:shared
+#PBS -l pvmem=5330mb
+#PBS -l cput=100:00:0
+#PBS -l walltime=100:00:0
+#PBS -q windfall
+#PBS -j oe
+#PBS -J 1-255
+
+
+source /usr/share/Modules/init/bash
+module load R
+
+cd $PBS_O_WORKDIR
+
+perl randomSearch.pl -c X >> X.SEARCH.HTC.$PBS_ARRAY_INDEX.verts.out 2> /dev/null 
+#perl randomSearch.pl -s -a >> Autos.10kb.RS.HTC.$PBS_ARRAY_INDEX.verts.out 2> /dev/null
+#perl randomSearch.pl -s -a >> Autos.10kb.RS.CLU.$PBS_ARRAY_INDEX.verts.out 2> /dev/null
+
